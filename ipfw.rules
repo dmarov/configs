@@ -1,0 +1,28 @@
+#!/bin/sh
+ipfw -q -f flush
+
+cmd="ipfw -q"
+ext_if="wlan0"
+ext_net="192.168.0.0/24"
+ext_net_default="192.168.0.1"
+int_if="bge0"
+int_net="192.168.1.0/24"
+
+#$cmd nat 123 config if $ext_if log redirect_addr $ext_net_default 0.0.0.0
+#$cmd nat 123 config if $ext_if
+#$cmd add 00001 fwd 192.168.0.1 all from 192.168.1.100 to any
+
+$cmd nat 1 config if $ext_if
+$cmd add 00100 check-state
+$cmd add 00100 nat 1 all from $int_net to any via $int_if keep-state
+$cmd add 00100 nat 1 all from any to any via $ext_if keep-state
+$cmd add 00100 allow all from any to any via $ext_if keep-state
+$cmd add 00100 allow all from any to any
+#$cmd add 00010 nat 123 ip from $int_net to 192.168.0.1
+#$cmd add 00010 nat 123 ip from $int_net to not me recv $int_if
+#$cmd add 00011 allow ip from any to any
+
+#$cmd add 00011 allow ip from any to any via $int_if
+
+#$cmd add 00020 allow ip from any to any via lo0
+#$cmd add 00030 allow ip from $ext_net to any out via $ext_if keep-state
