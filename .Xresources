@@ -1,0 +1,12 @@
+XTerm*foreground:         white
+XTerm*background:         black
+XTerm*renderFont: true
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 14
+
+
+UXTerm*background:         black
+UXTerm*foreground:         white
+UXTerm*renderFont: true
+UXTerm*faceName: DejaVu Sans Mono
+UXTerm*faceSize: 14
